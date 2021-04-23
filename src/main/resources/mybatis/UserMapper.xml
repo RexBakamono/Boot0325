@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rex.boot.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.rex.boot.bean.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="pass" property="pass" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryFirstAll" resultType="java.util.HashMap">
+        select *
+        from user
+    </select>
+
+    <select id="querySecondAll" resultType="java.util.HashMap">
+        select *
+        from user
+    </select>
+
+    <delete id="deleteById">
+        delete from user where id = #{id}
+    </delete>
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(name,pass) values(#{name},#{pass})
+    </insert>
+
+    <select id="findUserById" resultType="com.rex.boot.bean.User">
+        select *
+        from user where id = #{id}
+    </select>
+
+    <select id="getUser" resultType="java.lang.String">
+        select id
+        from user where name = #{name} and pass = #{pass}
+    </select>
+
+</mapper>

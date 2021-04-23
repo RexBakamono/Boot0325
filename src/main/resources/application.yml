@@ -1,0 +1,71 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    dynamic:
+      primary: db1 # 配置默认数据库
+      datasource:
+        db1: # 数据源1配置
+          url: jdbc:mysql://localhost:3306/zrex1?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        db2: # 数据源2配置
+          url: jdbc:mysql://localhost:3306/zrex2?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+      durid:
+        initial-size: 1
+        max-active: 20
+        min-idle: 1
+        max-wait: 60000
+
+  autoconfigure:
+    exclude:  com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure # 去除druid配置
+# activiti
+  activiti:
+    # 自动更新数据库结构
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
+    # 自动检查，部署流程定义文件 默认为true
+    check-process-definitions: true
+    process-definition-location-prefix: classpath:processes/
+
+  # redis
+#  redis:
+#    database: 0
+#    host: 198.74.121.157
+#    port: 6379
+#    password: 123456
+#    pool:
+#      max-active: 8
+#      max-wait: 1
+#      max-idle: 8
+#      min-idle: 0
+#    timeout: 5000
+
+#  security:
+#    user:
+#      name: rex
+#      password: 123456
+
+#  rabbitmq
+#  rabbitmq:
+#    username: guest
+#    password: guest
+#    virtual-host: /
+#    host: 127.0.0.1
+#    port: 5672
+
+# mybatis
+mybatis:
+  type-aliases-package: com.rex.boot.bean
+  mapper-locations: classpath:mybatis/*.xml
+
+pagehelper:
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
